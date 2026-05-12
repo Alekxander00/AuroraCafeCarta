@@ -287,7 +287,7 @@ a {
   left: 1.4rem;
   top: 1.3rem;
   width: min(44%, 420px);
-  opacity: 0.08;
+  opacity: 0.05;
 }
 
 .cover-beans {
@@ -320,7 +320,17 @@ a {
 
 .cover-logo {
   width: min(72%, 320px);
+  display: block;
   object-fit: contain;
+  padding: 1rem 1.2rem;
+  border-radius: 1.3rem;
+  background:
+    radial-gradient(circle at top, rgba(216, 192, 153, 0.16), transparent 62%),
+    linear-gradient(180deg, rgba(22, 43, 34, 0.94), rgba(12, 26, 20, 0.9));
+  border: 1px solid rgba(216, 192, 153, 0.24);
+  box-shadow:
+    0 18px 34px rgba(12, 26, 20, 0.18),
+    inset 0 1px 0 rgba(255, 248, 239, 0.12);
 }
 
 .eyebrow {
