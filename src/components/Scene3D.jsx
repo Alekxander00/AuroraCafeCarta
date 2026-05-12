@@ -1,21 +1,21 @@
 import { useEffect, useRef } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { Box3, DoubleSide, Mesh, MeshStandardMaterial, Vector3 } from 'three'
+import { Box3, Group, Vector3 } from 'three'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 
 function StageLights() {
   return (
     <>
-      <ambientLight intensity={0.76} color="#f3e5ce" />
+      <ambientLight intensity={1.05} color="#f5ead4" />
       <directionalLight
         castShadow
-        intensity={1.5}
-        color="#ffe4c0"
+        intensity={1.9}
+        color="#ffe7c2"
         position={[4.5, 6, 4.5]}
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
       />
-      <pointLight intensity={0.86} color="#c59759" position={[-4, 1.5, 3.5]} />
+      <pointLight intensity={1.1} color="#c59759" position={[-4, 1.8, 3.5]} />
     </>
   )
 }
@@ -42,76 +42,77 @@ function FloatRig({ item }) {
 
   return (
     <group ref={groupRef} position={item.position} rotation={item.rotation}>
-      <StylizedModel item={item} />
+      <FbxModel item={item} />
     </group>
   )
 }
 
-function StylizedModel({ item }) {
-  const object = useLoader(FBXLoader, item.src)
-  const fittedRef = useRef(null)
+function cloneMaterial(material) {
+  if (Array.isArray(material)) {
+    return material.map((entry) => entry.clone())
+  }
+
+  return material?.clone?.() ?? material
+}
+
+function FbxModel({ item }) {
+  const source = useLoader(FBXLoader, item.src)
+  const mountRef = useRef(null)
 
   useEffect(() => {
-    const fitted = fittedRef.current
-    if (!fitted) {
-      return
-    }
-
-    fitted.clear()
-    object.updateMatrixWorld(true)
-
-    let sourceMesh = null
-    object.traverse((child) => {
-      if (!sourceMesh && child.isMesh) {
-        sourceMesh = child
-      }
-    })
-
-    if (!sourceMesh) {
+    const mount = mountRef.current
+    if (!mount) {
       return undefined
     }
 
-    sourceMesh.updateMatrixWorld(true)
+    mount.clear()
 
-    const geometry = sourceMesh.geometry.clone()
-    geometry.applyMatrix4(sourceMesh.matrixWorld)
+    const wrapper = new Group()
+    const model = source.clone(true)
 
-    const bounds = new Box3().setFromBufferAttribute(geometry.attributes.position)
+    model.traverse((child) => {
+      if (!child.isMesh) {
+        return
+      }
+
+      child.material = cloneMaterial(child.material)
+      child.castShadow = true
+      child.receiveShadow = true
+      child.frustumCulled = false
+
+      if (Array.isArray(child.material)) {
+        child.material.forEach((entry) => {
+          entry.needsUpdate = true
+        })
+      } else if (child.material) {
+        child.material.needsUpdate = true
+      }
+    })
+
+    wrapper.add(model)
+    mount.add(wrapper)
+
+    const bounds = new Box3().setFromObject(model)
     const size = new Vector3()
     const center = new Vector3()
     bounds.getSize(size)
     bounds.getCenter(center)
-    geometry.translate(-center.x, -center.y, -center.z)
 
-    const fit = item.fit ?? 2.4
+    model.position.set(-center.x, -center.y, -center.z)
+
+    const fit = item.fit ?? 2.2
     const maxAxis = Math.max(size.x, size.y, size.z) || 1
     const scale = fit / maxAxis
-
-    const material = new MeshStandardMaterial({
-      color: item.color ?? '#d8c099',
-      emissive: item.color ?? '#d8c099',
-      emissiveIntensity: 0.08,
-      metalness: item.metalness ?? 0.08,
-      roughness: item.roughness ?? 0.68,
-      side: DoubleSide,
-    })
-
-    const mesh = new Mesh(geometry, material)
-    mesh.castShadow = true
-    mesh.receiveShadow = true
-    mesh.frustumCulled = false
-    mesh.scale.setScalar(scale)
-    mesh.position.y -= size.y * scale * 0.12
-    fitted.add(mesh)
+    wrapper.scale.setScalar(scale)
+    wrapper.position.y -= size.y * scale * 0.12
+    wrapper.updateMatrixWorld(true)
 
     return () => {
-      fitted.clear()
-      geometry.dispose()
-      material.dispose()
+      mount.clear()
     }
-  }, [item.color, item.fit, item.metalness, item.roughness, object])
+  }, [item.fit, item.src, source])
 
-  return <group ref={fittedRef} />
+  return <group ref={mountRef} />
 }
 
 function StageFloor() {

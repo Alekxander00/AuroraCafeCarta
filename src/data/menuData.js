@@ -1,7 +1,7 @@
-import cupHeroModel from '../images/3D/taza de cafe logo 2.fbx?url'
-import blackCupModel from '../images/3D/taza de cafe negro.fbx?url'
-import cookiesModel from '../images/3D/cookies.fbx?url'
-import sandwichModel from '../images/3D/sandwich.fbx?url'
+import cupHeroModel from '../images/3D/taza de cafe logo 2.fbx'
+import blackCupModel from '../images/3D/taza de cafe negro.fbx'
+import cookiesModel from '../images/3D/cookies.fbx'
+import sandwichModel from '../images/3D/sandwich.fbx'
 
 import filterIllustration from '../images/Decorators/Filtro.png'
 import coffeeBean from '../images/Decorators/GranoCafe.png'

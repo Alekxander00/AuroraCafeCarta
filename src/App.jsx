@@ -43,15 +43,7 @@ function MenuGroup({ group }) {
   )
 }
 
-function SceneSlot({ scene, title, active }) {
-  if (!active) {
-    return (
-      <div className="scene-fallback stage-poster">
-        <span>{title}</span>
-      </div>
-    )
-  }
-
+function SceneSlot({ scene }) {
   return (
     <Suspense fallback={<div className="scene-fallback">Preparando seleccion...</div>}>
       <Scene3D scene={scene} />
@@ -168,11 +160,7 @@ export default function App() {
 
             <div className="cover-visual">
               <div className="scene-card hero-scene-card">
-                <SceneSlot
-                  scene={coverData.stage}
-                  title="Aurora Blend"
-                  active={isStacked || activeIndex <= 1}
-                />
+                <SceneSlot scene={coverData.stage} />
                 <div className="scene-caption">
                   <span>Selecciones</span>
                   <p>Cafe de especialidad, panaderia fresca y cocina ligera para mesa.</p>
@@ -182,10 +170,7 @@ export default function App() {
           </div>
         </section>
 
-        {menuPages.map((page, pageOffset) => {
-          const panelIndex = pageOffset + 1
-          const sceneIsActive = isStacked || Math.abs(activeIndex - panelIndex) <= 1
-
+        {menuPages.map((page) => {
           return (
             <section key={page.id} id={page.id} className="panel">
               <div className="panel-paper">
@@ -221,7 +206,7 @@ export default function App() {
                     </article>
 
                     <div className="scene-card compact-scene-card">
-                      <SceneSlot scene={page.stage} title={page.featured.title} active={sceneIsActive} />
+                      <SceneSlot scene={page.stage} />
                     </div>
 
                     <div className="service-card">
