@@ -1,0 +1,55 @@
+Informe del paquete
+
+-----------------------------------------------------------------------------
+Documento:
+Nombre: CAFE.ai
+Modo de color: Color RGB
+Perfil de color: sRGB IEC61966-2.1
+Unidades de regla: centímetros
+Dimensiones de la mesa de trabajo: 27,94 cm x 21,59 cm
+Mostrar imágenes en modo contorno: Desactivado
+Resaltar fuentes sustituidas: Desactivado
+Resaltar glifos sustituidos: Desactivado
+Conservar capacidad de edición de texto
+Simular papel de color: Desactivado
+
+-----------------------------------------------------------------------------
+Objetos de tintas planas:
+
+-----------------------------------------------------------------------------
+Fuentes no disponibles:Ninguno
+
+-----------------------------------------------------------------------------
+Fuentes protegidas no empaquetadas:Ninguno
+
+-----------------------------------------------------------------------------
+Fuentes:
+Urbanist Bold Italic (TrueType)
+Urbanist Light (TrueType)
+Urbanist Italic (TrueType)
+Urbanist ExtraBold Italic (TrueType)
+Urbanist Thin (TrueType)
+Urbanist Medium Italic (TrueType)
+Urbanist Regular (TrueType)
+Urbanist SemiBold (TrueType)
+Urbanist ExtraLight Italic (TrueType)
+Urbanist ExtraBold (TrueType)
+Urbanist Black (TrueType)
+Urbanist ExtraLight (TrueType)
+Urbanist Medium (TrueType)
+Urbanist Thin Italic (TrueType)
+Urbanist SemiBold Italic (TrueType)
+Urbanist Bold (TrueType)
+League Spartan Regular (TrueType)
+
+-----------------------------------------------------------------------------
+Fuentes incrustadas:
+Ninguno
+
+-----------------------------------------------------------------------------
+Enlaces no disponibles:
+Ninguno
+
+-----------------------------------------------------------------------------
+Imágenes enlazadas:
+Ninguno

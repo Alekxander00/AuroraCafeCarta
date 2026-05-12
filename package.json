@@ -1,0 +1,31 @@
+{
+  "name": "auroracafe",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Carta digital editorial para Aurora Cafe construida con React, Vite y Three.js.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "react",
+    "vite",
+    "three",
+    "vercel",
+    "menu"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@react-three/fiber": "^9.6.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "three": "^0.184.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.12"
+  }
+}
